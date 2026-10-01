@@ -1,4 +1,4 @@
-# Identifiering av framg�ngsfaktorer f�r l�ngsiktigt lyckliga relationer 
+# Identifiering av framgångsfaktorer för långsiktigt lyckliga relationer 
 # Identifiering av framgångsfaktorer för långsiktigt lyckliga relationer
 
 ## Om projektet
