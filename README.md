@@ -10,6 +10,7 @@ Projektet fokuserar på mönsteridentifiering och faktoranalys för att hjälpa 
 * Nora Masamra
 * Irfan Pallani
 * Biljana Markovic
+* Mathurin Radabud
 
 ## Datakällor
 Projektet kombinerar och analyserar fyra komplementära dataset från Kaggle:
