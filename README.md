@@ -13,11 +13,13 @@ Projektet fokuserar på mönsteridentifiering och faktoranalys för att hjälpa 
 * Abdullahi Sheek Elmi
 
 ## Datakällor
-Projektet kombinerar och analyserar fyra komplementära dataset från Kaggle:
-1. **Split or Stay: Divorce Predictor** (Huvuddataset baserat på Gottman DPS Skala)
-2. **The Keys To Predict Divorce** (Valideringsdataset med Likert-skala 0-4)
-3. **Social Media Addiction vs Relationship** (Analys av digital skärmtid och konflikter)
-4. **Happy Couples Dataset** (Kontinuerlig skala för relationstillfredsställelse)
+
+Projektet kombinerar och analyserar komplementär dataset från Kaggle:
+
+**Split or Stay: Divorce Predictor** (Huvuddataset baserat på Gottman DPS Skala).
+
+Vi tänker att välja **skildmässa** data, och nummer och dataset **Split or Stay: Divorce Predictor.**
+
 
 ## Projektstruktur:
 
