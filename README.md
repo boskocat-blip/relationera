@@ -36,3 +36,37 @@ Vi tänker att välja **skildmässa** data, och nummer och dataset **Split or St
 * **Baseline:** Logistic Regression
 * **Avancerade modeller:** Decision Tree, Random Forest och XGBoost
 * **Förklarbarhet (XAI):** SHAP-värden för identifiering av viktiga faktorer
+| Fil | Innehåll |
+|---|---|
+| `02_modellering.py` | Koden: uppdelning, modeller, korsvalidering, utvärdering och figurer |
+| `02_modellering.md` | Texten: upplägg, resultat, samband och begränsningar |
+
+## Installation
+
+ Python version 3.12.
+
+```bash
+pip install pandas numpy scikit-learn imbalanced-learn matplotlib
+```
+
+## Köra
+
+Kör från projektmappen (där `data/` ligger):
+
+```bash
+python notebooks/02_modellering.py
+```
+
+Skriptet läser `data/raw/divorce.csv`, skriver resultaten i terminalen och sparar tabeller och bilder. Slumptalet är fast, så två körningar ger samma resultat.
+
+## Vad som skapas
+
+- `resultat_modeller.csv` - korsvalidering och testresultat för alla fyra modeller
+- `logreg_koefficienter.csv` och `.png` - sambanden i Logistic Regression
+- `decision_tree_betydelse.csv` och `.png` - variabelbetydelse i Decision Tree
+- `forvaxlingsmatriser.png` - förväxlingsmatriser på testdatan
+
+## Viktigt att veta
+
+- Datan delas upp i träning och test **innan** något skalas. `StandardScaler` och `SMOTE` ligger i en pipeline och används därför bara på träningsdata.
+- Skriptet använder rådatan (`data/raw/divorce.csv`) och inte den skalade filen i `data/processed/`, eftersom den är skalad på hela datasetet före uppdelningen.
