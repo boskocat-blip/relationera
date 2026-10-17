@@ -1,0 +1,20 @@
+venv/ 
+.ipynb_checkpoints/ 
+data/raw/* 
+!data/raw/.gitkeep 
+data/processed/* 
+!data/processed/.gitkeep 
+venv/
+.venv/
+.ipynb_checkpoints/
+
+# Ignor all but .gitkeep file
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/*.csv
+
+# Ignore all in processed but .gitkeep file
+data/processed/*
+!data/processed/.gitkeep
+
+.DS_Store
