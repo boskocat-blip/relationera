@@ -6,8 +6,8 @@ Den här delen tränar och utvärderar två modeller på datasetet *Split or Sta
 
 | Fil | Innehåll |
 |---|---|
-| `02_modellering_irfan.py` | Koden: uppdelning, modeller, korsvalidering, utvärdering och figurer |
-| `02_modellering_irfan.md` | Texten: upplägg, resultat, samband och begränsningar |
+| `02_modellering.py` | Koden: uppdelning, modeller, korsvalidering, utvärdering och figurer |
+| `02_modellering.md` | Texten: upplägg, resultat, samband och begränsningar |
 
 ## Installation
 
@@ -22,10 +22,10 @@ pip install pandas numpy scikit-learn imbalanced-learn matplotlib
 Kör från projektmappen (där `data/` ligger):
 
 ```bash
-python notebooks/02_modellering_irfan.py
+python notebooks/02_modellering.py
 ```
 
-Skriptet läser `data/raw/divorce.csv`, skriver resultaten i terminalen och sparar tabeller och bilder i `reports/irfan_modellering/`. Slumptalet är fast, så två körningar ger samma resultat.
+Skriptet läser `data/raw/divorce.csv`, skriver resultaten i terminalen och sparar tabeller och bilder. Slumptalet är fast, så två körningar ger samma resultat.
 
 ## Vad som skapas
 
