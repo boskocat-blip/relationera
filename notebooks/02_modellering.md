@@ -71,17 +71,10 @@ Alla tio är positiva, vilket betyder att högre svarsvärde hänger ihop med st
 
 **Att tänka på vid tolkningen:** att trädet nästan bara använder `harmony` betyder inte att de andra variablerna är oviktiga. Många av frågorna mäter nästan samma sak och hänger ihop, så trädet kan hitta en enda fråga som räcker. Logistic Regression sprider vikten över många variabler. Därför ska man titta på båda och inte tolka rangordningen som exakt.
 
-## 6. Begränsningar
-
-- **Litet dataset.** Testdatan är bara 34 par, så ett enda fel ändrar träffsäkerheten med ungefär 3 procentenheter. Korsvalideringen är därför ett säkrare mått än testresultatet.
-- **Dubbletter.** 5 av 34 testrader har en identisk rad i träningsdatan, vilket kan göra testet lite lättare. På de 29 testrader som inte har någon identisk träningsrad blev accuracy 0,931 för Logistic Regression och 0,897 för Decision Tree. Det är nästan samma som på hela testdatan, så dubbletterna förklarar inte de höga siffrorna.
-- **Mycket höga resultat.** Båda modellerna ligger över 90 %, och korsvalideringens F1 är nära 0,98. Det tyder på att enkätsvaren skiljer de två grupperna väldigt tydligt, men vi vet inte hur det skulle fungera på andra par eller andra enkäter. Svaren kan också ha påverkats av hur relationen redan såg ut när enkäten besvarades.
-- **Samband, inte orsak.** Se avsnitt 1.
-
 ## 7. Så upprepar du körningen
 
 ```bash
-python notebooks/02_modellering_irfan.py
+python notebooks/02_modellering.py
 ```
 
-Slumptalet är fast (42), så resultaten blir likadana varje gång. Resultattabeller och bilder sparas i `reports/irfan_modellering/`. Biblioteken som behövs finns i `README_irfan.md`.
+Slumptalet är fast (42), så resultaten blir likadana varje gång.
