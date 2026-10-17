@@ -1,4 +1,4 @@
-# Del 2: Modellering (Irfan)
+# Del 2: Modellering (Irfan, Mathurin)
 
 Den här delen tränar och utvärderar två modeller på datasetet *Split or Stay: Divorce Predictor* (dataset nummer 1, Kaggle): en baslinje med Logistic Regression och en Decision Tree. Den bygger vidare på del 1 (datainsamling och förberedelse).
 
