@@ -2,7 +2,7 @@
 
 **Ansvarig:** Irfan Pallani
 **Projekt:** Identifiering av framgångsfaktorer för långsiktigt lyckliga relationer
-**Kod:** `02_modellering_irfan.py`
+**Kod:** `02_modellering.py`
 
 ---
 
