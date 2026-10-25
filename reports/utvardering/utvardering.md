@@ -1,64 +1,295 @@
-# Utvärdering av modeller
+# Utvärdering av maskininlärningsmodeller
 
 ## 1. Syfte
 
-Syftet med utvärderingen är att undersöka hur väl maskininlärningsmodellerna kan klassificera relationer som stabila eller skilda utifrån datasetets variabler. Vi jämför Logistic Regression och Decision Tree, både med och utan SMOTE.
+Syftet med utvärderingen är att undersöka hur väl olika maskininlärningsmodeller kan förutsäga om en relation är stabil eller om den har slutat i skilsmässa, baserat på information från ett dataset med enkätfrågor.
 
-## 2. Utvärderingsmetoder
+I projektet jämförs fyra olika maskininlärningsmodeller:
 
-Modellerna utvärderades med Accuracy, Precision, Recall, F1-score och ROC-AUC. Vi använde även korsvalidering och förväxlingsmatriser för att undersöka modellernas prestationer.
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- XGBoost
 
-Datasetet innehåller 170 observationer och 54 förklarande variabler. Av dessa användes 136 observationer till träning och 34 till testning.
+Logistic Regression och Decision Tree har även testats med SMOTE för att undersöka om balansering av träningsdata kan förbättra resultaten.
 
-## 3. Resultat
+Målet är att jämföra modellernas prestationer, identifiera styrkor och svagheter samt rekommendera en lämplig modell.
 
-| Modell | Accuracy | F1-score | ROC-AUC |
-|---|---|---|---|
-| Logistic Regression | 94,1 % | 93,8 % | 100 % |
-| Logistic Regression + SMOTE | 94,1 % | 93,8 % | 100 % |
-| Decision Tree | 91,2 % | 90,3 % | 93,1 % |
-| Decision Tree + SMOTE | 91,2 % | 90,3 % | 93,1 % |
+## 2. Dataset och utvärderingsmetoder
 
-Resultaten visar att Logistic Regression uppnådde bäst resultat. Modellen hade högre accuracy och F1-score än Decision Tree.
+Datasetet innehåller totalt 170 observationer, 54 förklarande variabler och en målvariabel som heter `Divorce_Y_N`.
 
-SMOTE förbättrade inte resultaten för någon av modellerna.
+Målvariabeln anger om observationen tillhör kategorin skilsmässa eller inte.
+
+Datasetet delades upp enligt följande:
+
+- Träningsdata: 136 observationer (80 %)
+- Testdata: 34 observationer (20 %)
+
+Modellernas resultat utvärderades med flera olika mått.
+
+**Accuracy:** Andelen observationer som modellen klassificerar korrekt.
+
+**Precision:** Hur stor andel av de observationer som modellen förutsäger som skilsmässor som faktiskt tillhör den kategorin.
+
+**Recall:** Hur stor andel av de faktiska skilsmässorna som modellen lyckas identifiera.
+
+**F1-score:** Ett mått som kombinerar precision och recall och visar balansen mellan dessa.
+
+**ROC-AUC:** Ett mått på modellens förmåga att skilja mellan de två klasserna vid olika klassificeringströsklar.
+
+Utöver dessa mått användes korsvalidering för att undersöka modellernas prestation på olika delar av träningsdatan.
+
+Förväxlingsmatriser analyserades också för att undersöka vilka felklassificeringar modellerna gjorde.
+
+## 3. Jämförelse av modellerna
+
+Resultaten från testdatan visas i tabellen nedan.
+
+| Modell | Accuracy | Precision | Recall | F1-score |
+|---|---|---|---|---|
+| Logistic Regression | 0.941 | 1.000 | 0.882 | 0.938 |
+| Logistic Regression + SMOTE | 0.941 | 1.000 | 0.882 | 0.938 |
+| Decision Tree | 0.912 | 1.000 | 0.824 | 0.903 |
+| Decision Tree + SMOTE | 0.912 | 1.000 | 0.824 | 0.903 |
+| Random Forest | 0.941 | 1.000 | 0.882 | 0.938 |
+| XGBoost | 0.941 | 1.000 | 0.882 | 0.938 |
+
+Resultaten visar att Logistic Regression, Random Forest och XGBoost uppnådde samma redovisade Accuracy och F1-score på testdatan.
+
+Dessa modeller uppnådde 94,1 % Accuracy och 93,8 % F1-score.
+
+Decision Tree hade något lägre resultat med 91,2 % Accuracy och 90,3 % F1-score.
+
+Samtliga modeller fick Precision på 1,0. Det innebär att ingen av modellerna gjorde några falskt positiva förutsägelser för skilsmässoklassen i detta test.
+
+Logistic Regression, Random Forest och XGBoost hade däremot högre Recall än Decision Tree. Det innebär att de lyckades identifiera en större andel av de faktiska skilsmässorna.
+
+### Jämförelse av F1-score
+
+![Jämförelse av F1-score](f1_jamforelse.png)
+
+Diagrammet visar att Logistic Regression, Random Forest och XGBoost presterade lika bra enligt F1-score, medan Decision Tree hade något lägre resultat.
+
+### Jämförelse av Accuracy
+
+![Jämförelse av Accuracy](accuracy_jamforelse.png)
+
+Diagrammet visar samma mönster. Tre modelltyper uppnådde högst Accuracy, medan Decision Tree presterade något sämre.
 
 ## 4. Analys av förväxlingsmatriser
 
-Logistic Regression klassificerade 32 av 34 observationer korrekt. Modellen identifierade samtliga 17 stabila relationer och 15 av 17 skilsmässor.
+För att förstå modellernas klassificeringar analyserades även förväxlingsmatriser.
 
-Decision Tree klassificerade 31 av 34 observationer korrekt. Den identifierade också samtliga stabila relationer, men endast 14 av 17 skilsmässor.
+En förväxlingsmatris visar hur många observationer modellen har klassificerat korrekt respektive felaktigt.
 
-Logistic Regression gjorde alltså färre felklassificeringar.
+### Logistic Regression
+
+Logistic Regression klassificerade 32 av 34 testobservationer korrekt.
+
+Resultatet visar att:
+
+- 17 stabila relationer klassificerades korrekt.
+- 15 skilsmässor klassificerades korrekt.
+- 2 skilsmässor klassificerades felaktigt som stabila relationer.
+- Inga stabila relationer klassificerades felaktigt som skilsmässor.
+
+### Decision Tree
+
+Decision Tree klassificerade 31 av 34 testobservationer korrekt.
+
+Resultatet visar att:
+
+- 17 stabila relationer klassificerades korrekt.
+- 14 skilsmässor klassificerades korrekt.
+- 3 skilsmässor klassificerades felaktigt som stabila relationer.
+- Inga stabila relationer klassificerades felaktigt som skilsmässor.
+
+Random Forest och XGBoost uppnådde samma redovisade Accuracy, Precision och Recall som Logistic Regression. Någon separat granskning av deras förväxlingsmatriser har däremot inte genomförts i denna utvärderingskod.
+
+Resultaten visar att Logistic Regression gjorde färre felklassificeringar än Decision Tree.
+
+Eftersom testdatasetet endast innehåller 34 observationer kan ett enskilt fel få relativt stor påverkan på resultaten.
 
 ## 5. Korsvalidering och överanpassning
 
-Logistic Regression uppnådde 98,5 % accuracy vid korsvalidering och 94,1 % på testdatan. Skillnaden var 4,4 procentenheter.
+Korsvalidering används för att undersöka hur stabila modellernas resultat är när olika delar av träningsdatan används för träning och validering.
 
-Decision Tree uppnådde 97,5 % vid korsvalidering och 91,2 % på testdatan. Skillnaden var 6,3 procentenheter.
+I denna utvärdering jämfördes Accuracy från korsvalideringen med Accuracy från testdatan.
 
-Båda modellerna presterade sämre på testdatan än vid korsvalideringen. Detta kan vara ett tecken på överanpassning, men kan också bero på variationer i ett litet dataset.
+| Modell | CV Accuracy | Test Accuracy | Skillnad |
+|---|---|---|---|
+| Logistic Regression | 0.985 | 0.941 | 0.044 |
+| Logistic Regression + SMOTE | 0.985 | 0.941 | 0.044 |
+| Decision Tree | 0.975 | 0.912 | 0.063 |
+| Decision Tree + SMOTE | 0.974 | 0.912 | 0.062 |
+| Random Forest | 0.985 | 0.941 | 0.044 |
+| XGBoost | 0.982 | 0.941 | 0.041 |
 
-Logistic Regression hade en mindre skillnad och högre testresultat.
+Samtliga modeller hade högre Accuracy vid korsvalideringen än på testdatan.
 
-## 6. Kontroll av dubbletter
+XGBoost hade den minsta skillnaden mellan korsvalidering och testresultat, med 4,1 procentenheter.
 
-Vid kontroll av datasetet upptäcktes 20 dubblettrader. Dessutom hade 5 av de 34 testobservationerna identiska variabelvärden med minst en observation i träningsdatan.
+Decision Tree hade den största skillnaden, med 6,3 procentenheter.
 
-För att undersöka detta utvärderades modellerna även på de 29 testobservationer som inte hade identiska träningsrader.
+En möjlig förklaring är att vissa modeller har anpassat sig för mycket till träningsdatan, vilket brukar kallas överanpassning eller *overfitting*.
 
-Logistic Regression uppnådde då 93,1 % accuracy och Decision Tree 89,7 %.
+Skillnaderna bevisar däremot inte att överanpassning har skett. Eftersom datasetet är litet kan variationer mellan träningsdata och testdata också påverka resultaten.
 
-Resultaten visar att Logistic Regression fortfarande presterade bättre. Samtidigt visar kontrollen att dubbletter kan påverka resultatens tillförlitlighet.
+För att kunna bedöma modellernas generaliseringsförmåga säkrare behövs fler observationer och ytterligare tester.
 
-Kontrollen tar endast bort överlappande observationer från själva utvärderingen. Den ersätter därför inte ett nytt experiment där dubbletter hanteras innan tränings- och testdata delas upp.
+## 6. Kontroll av dubbletter och dataläckage
 
-## 7. Slutsats
+En viktig del av utvärderingen var att undersöka om datasetet innehöll dubbletter som kunde påverka resultaten.
 
-Utifrån utvärderingen rekommenderas Logistic Regression utan SMOTE som den mest lämpliga modellen av de testade alternativen.
+Kontrollen gav följande resultat:
 
-Modellen uppnådde högst F1-score och accuracy, gjorde färre felklassificeringar och hade en mindre skillnad mellan korsvalidering och testresultat.
+- Totalt antal observationer: 170
+- Antal dubblettrader: 20
+- Antal träningsobservationer: 136
+- Antal testobservationer: 34
+- Testobservationer med identiska variabelvärden i träningsdata: 5
 
-En begränsning är att datasetet är litet och innehåller dubbletter. Därför kan vi inte vara säkra på att modellen skulle prestera lika bra på helt nya observationer.
+Det innebär att 5 av de 34 testobservationerna hade samma förklarande variabelvärden som minst en observation i träningsdatan.
 
-För att förbättra projektet rekommenderas framtida tester med ett större och mer varierat dataset samt en ny utvärdering där dubbletter hanteras innan datauppdelningen.
+Detta innebär en risk för missvisande utvärderingsresultat eftersom modellerna kan ha sett identiska variabelkombinationer under träningen.
+
+Identiska enkätsvar behöver dock inte betyda att observationerna kommer från samma personer.
+
+### Resultat utan identiska träningsrader
+
+Gruppens modellering innehöll även en kontroll där Accuracy beräknades på de 29 testobservationer som inte hade identiska variabelrader i träningsdatan.
+
+Resultatet blev:
+
+| Modell | Accuracy på 29 testobservationer |
+|---|---|
+| Logistic Regression | 93,1 % |
+| Decision Tree | 89,7 % |
+
+Resultaten visar att Logistic Regression fortfarande presterade bättre än Decision Tree i denna kontroll.
+
+Motsvarande kontroll har inte genomförts för Random Forest och XGBoost.
+
+Det är också viktigt att förtydliga att denna kontroll inte innebär att modellerna tränades om på ett dubblettfritt dataset.
+
+För en mer tillförlitlig utvärdering rekommenderas att dubbletter hanteras innan träningsdata och testdata delas upp, följt av ny träning och utvärdering av samtliga modeller.
+
+## 7. Utvärdering av SMOTE
+
+SMOTE är en metod som används för att skapa syntetiska observationer av en underrepresenterad klass i träningsdata.
+
+I projektet testades SMOTE tillsammans med Logistic Regression och Decision Tree.
+
+Resultaten visar att SMOTE inte förbättrade Accuracy, Recall eller F1-score för någon av dessa modeller.
+
+Logistic Regression fick samma testresultat med och utan SMOTE.
+
+Samma sak gällde Decision Tree.
+
+En möjlig förklaring är att datasetet redan har en relativt jämn klassfördelning med 86 observationer i den ena klassen och 84 i den andra.
+
+Utifrån de aktuella resultaten finns det därför ingen tydlig anledning att välja versionerna med SMOTE.
+
+## 8. Modellernas styrkor och begränsningar
+
+### Logistic Regression
+
+Logistic Regression uppnådde ett av de bästa resultaten i utvärderingen.
+
+Modellen är relativt enkel att använda och tolka. Dess koefficienter kan användas för att undersöka hur olika variabler påverkar modellens beräknade sannolikheter.
+
+En begränsning är att modellen bygger på ett linjärt samband mellan variablerna och log-oddset för målvariabeln.
+
+### Decision Tree
+
+Decision Tree är en modell som är lätt att visualisera och förstå.
+
+Den kan skapa regler som visar hur olika variabler används för att klassificera observationer.
+
+I detta projekt uppnådde modellen något sämre resultat än de övriga modelltyperna.
+
+### Random Forest
+
+Random Forest kombinerar flera beslutsträd för att skapa mer robusta förutsägelser.
+
+Modellen uppnådde samma redovisade testresultat som Logistic Regression och XGBoost.
+
+En nackdel är att modellen kan vara svårare att tolka än Logistic Regression.
+
+### XGBoost
+
+XGBoost bygger flera träd stegvis, där nya träd används för att förbättra modellens förutsägelser.
+
+Även XGBoost uppnådde 94,1 % Accuracy och 93,8 % F1-score.
+
+Modellen hade den minsta skillnaden mellan korsvalidering och testresultat, men skillnaden mot övriga modeller var liten.
+
+En nackdel är att modellen kan vara mer komplex och kräva fler inställningar.
+
+### Tolkning med SHAP
+
+Gruppen har även använt SHAP för Random Forest och XGBoost.
+
+SHAP används för att undersöka hur olika variabler bidrar till modellernas förutsägelser.
+
+Det är viktigt att skilja mellan variabler som påverkar en modells förutsägelse och variabler som faktiskt orsakar ett visst resultat.
+
+Modellernas förklaringar ska därför inte tolkas som bevis för vad som orsakar skilsmässa.
+
+## 9. Begränsningar och förbättringsförslag
+
+Projektet har flera begränsningar som är viktiga att ta hänsyn till.
+
+Den första begränsningen är datasetets storlek. Med endast 170 observationer är det svårt att avgöra hur väl modellerna skulle fungera på ett större och mer varierat dataset.
+
+Den andra begränsningen är förekomsten av dubbletter. Detta kan påverka både modellträning och utvärdering.
+
+Den tredje begränsningen är att vissa resultat för Random Forest och XGBoost har hämtats från gruppens modellrapport och lagts in manuellt i utvärderingskoden.
+
+Test-ROC-AUC saknas dessutom i den gemensamma sammanställningen för dessa två modeller.
+
+För att utveckla projektet vidare rekommenderas följande:
+
+1. Testa modellerna på ett större och mer varierat dataset.
+2. Hantera dubbletter innan data delas upp.
+3. Använd samma utvärderingsmetoder för samtliga modeller.
+4. Beräkna ROC-AUC och förväxlingsmatriser för alla modeller.
+5. Genomför ytterligare tester för att undersöka överanpassning och generaliseringsförmåga.
+
+## 10. Slutsats
+
+Utvärderingen visar att Logistic Regression, Random Forest och XGBoost uppnådde samma redovisade testresultat med 94,1 % Accuracy och 93,8 % F1-score.
+
+Decision Tree presterade något sämre med 91,2 % Accuracy och 90,3 % F1-score.
+
+SMOTE förbättrade inte testresultaten för Logistic Regression eller Decision Tree.
+
+Utifrån dessa resultat går det inte att utse någon av de tre bästa modelltyperna till en tydlig vinnare när man endast tittar på Accuracy och F1-score.
+
+Logistic Regression utan SMOTE rekommenderas som ett lämpligt slutligt modellval eftersom modellen uppnådde lika bra resultat som de mer avancerade modellerna, samtidigt som den är relativt enkel att tolka.
+
+Resultaten behöver dock tolkas med försiktighet eftersom datasetet är litet och innehåller dubbletter.
+
+Sammanfattningsvis visar projektet att maskininlärning kan användas för att identifiera mönster i datasetet, men ytterligare validering krävs innan resultaten kan anses tillförlitliga för nya observationer.
+
+## 11. Kod och resultatfiler
+
+Utvärderingen genomfördes i Python med hjälp av bland annat pandas, matplotlib och scikit-learn.
+
+Följande filer ingår i utvärderingsdelen:
+
+- `notebooks/03_utvardering.py` – Python-kod för utvärderingen.
+- `reports/utvardering/modelljamforelse.csv` – jämförelse av modellresultat.
+- `reports/utvardering/korsvalidering_jamforelse.csv` – jämförelse mellan korsvalidering och testresultat.
+- `reports/utvardering/f1_jamforelse.png` – diagram över F1-score.
+- `reports/utvardering/accuracy_jamforelse.png` – diagram över Accuracy.
+- `reports/utvardering/utvardering.md` – denna rapport.
+
+Modellresultaten bygger på gruppens befintliga modellering i `02_modellering.py` och `02_random_forest_xgboost.py` samt tillhörande rapporter.
+
+För att köra utvärderingen används följande kommando från projektets huvudmapp:
+
+`python notebooks/03_utvardering.py`
+
+Resultatfilerna sparas automatiskt i mappen `reports/utvardering/`.

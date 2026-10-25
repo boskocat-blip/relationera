@@ -1,5 +1,7 @@
-modell,cv_accuracy,cv_f1,cv_f1_std,cv_roc_auc,test_accuracy,test_precision,test_recall,test_f1,test_roc_auc,skillnad_accuracy
-Logistic Regression,0.985,0.984,0.023,1.0,0.941,1.0,0.882,0.938,1.0,0.04400000000000004
-Logistic Regression + SMOTE,0.985,0.984,0.023,1.0,0.941,1.0,0.882,0.938,1.0,0.04400000000000004
-Decision Tree,0.975,0.975,0.027,0.975,0.912,1.0,0.824,0.903,0.931,0.06299999999999994
-Decision Tree + SMOTE,0.974,0.974,0.026,0.975,0.912,1.0,0.824,0.903,0.931,0.061999999999999944
+modell,cv_accuracy,test_accuracy,skillnad_accuracy
+Logistic Regression,0.985,0.941,0.04400000000000004
+Logistic Regression + SMOTE,0.985,0.941,0.04400000000000004
+XGBoost,0.982,0.941,0.041000000000000036
+Random Forest,0.985,0.941,0.04400000000000004
+Decision Tree + SMOTE,0.974,0.912,0.061999999999999944
+Decision Tree,0.975,0.912,0.06299999999999994
